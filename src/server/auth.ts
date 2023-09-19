@@ -6,11 +6,10 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 
-import EmailProvider from "next-auth/providers/email";
+import GoogleProvider from "next-auth/providers/google";
 
-// import { env } from "@/env.mjs";
+import { env } from "@/env.mjs";
 import { db } from "@/server/db";
-import emailClient from "@/lib/email-client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -40,6 +39,12 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
+    async signIn({ account, profile, user, ...props }) {
+      console.log({ account, profile, user });
+
+      return true;
+      // Do different verification for other providers that don't have `email_verified`
+    },
     session: ({ session, user }) => ({
       ...session,
       user: {
@@ -50,30 +55,16 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(db),
   providers: [
-    EmailProvider({
-      sendVerificationRequest: async function ({
-        identifier: email,
-        url,
-        provider: { server, from },
-      }) {
-        const { host } = new URL(url);
-        await emailClient.send({
-          to: email,
-          from: {
-            email: "no-reply@startupsquare.co",
-            name: "StartupSquare Team",
-          },
-          subject: `Confirm your email`,
-          html: html({ url, host, email }),
-          text: `Sign in to ${host}\n${url}\n\n`,
-          headers: { "X-Entity-Ref-ID": new Date().toDateString() },
-        });
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          scope:
+            "openid email profile https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.calendars.readonly",
+        },
       },
     }),
-    // DiscordProvider({
-    //   clientId: env.DISCORD_CLIENT_ID,
-    //   clientSecret: env.DISCORD_CLIENT_SECRET,
-    // }),
     /**
      * ...add more providers here.
      *
