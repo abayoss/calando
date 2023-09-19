@@ -39,12 +39,6 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    async signIn({ account, profile, user, ...props }) {
-      console.log({ account, profile, user });
-
-      return true;
-      // Do different verification for other providers that don't have `email_verified`
-    },
     session: ({ session, user }) => ({
       ...session,
       user: {
