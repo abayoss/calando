@@ -2,7 +2,10 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 
-import { api } from "@/utils/api";
+import { api } from "@/lib/api";
+import { ReactElement } from "react";
+import RootLayout from "@/layouts/root-layout";
+import NestedLayout from "@/layouts/nested-layout";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -55,6 +58,14 @@ export default function Home() {
     </>
   );
 }
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <RootLayout>
+      <NestedLayout>{page}</NestedLayout>
+    </RootLayout>
+  );
+};
 
 function AuthShowcase() {
   const { data: sessionData } = useSession();
