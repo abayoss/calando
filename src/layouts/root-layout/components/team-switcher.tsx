@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import {
   CaretSortIcon,
@@ -46,24 +44,13 @@ import {
 const groups = [
   {
     label: "Personal Account",
-    teams: [
-      {
-        label: "Alicia Koch",
-        value: "personal",
-      },
-    ],
+    teams: [{ label: "Alicia Koch", value: "personal" }],
   },
   {
     label: "Teams",
     teams: [
-      {
-        label: "Acme Inc.",
-        value: "acme-inc",
-      },
-      {
-        label: "Monsters Inc.",
-        value: "monsters",
-      },
+      { label: "Acme Inc.", value: "acme-inc" },
+      { label: "Monsters Inc.", value: "monsters" },
     ],
   },
 ] as const;
