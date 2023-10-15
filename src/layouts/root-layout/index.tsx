@@ -8,7 +8,7 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <div className="border-b">
         <div className="flex h-16 items-center px-4">
           <TeamSwitcher />
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </div>
         </div>
       </div>
-      <div className="">{children}</div>
+      <div className="flex flex-1 flex-col">{children}</div>
     </div>
   );
 }
