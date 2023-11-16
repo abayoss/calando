@@ -20,6 +20,7 @@ const ProfilePage: NextPageWithLayout = () => {
         <meta name="description" content="Home page" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
+
       <div className="flex flex-col">
         <p className="text-2xl ">Profile Page</p>
       </div>

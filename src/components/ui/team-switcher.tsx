@@ -92,11 +92,13 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
+
         <PopoverContent className="w-[200px] p-0">
           <Command>
             <CommandList>
               <CommandInput placeholder="Search team..." />
               <CommandEmpty>No team found.</CommandEmpty>
+
               {groups.map((group) => (
                 <CommandGroup key={group.label} heading={group.label}>
                   {group.teams.map((team) => (
@@ -110,7 +112,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                     >
                       <Avatar className="mr-2 h-5 w-5">
                         <AvatarImage
-                          src={`https://avatar.vercel.sh/${team.value}.png`}
+                          src={`https://avatar.vercel.sh/${team.value}.svg`}
                           alt={team.label}
                           className="grayscale"
                         />
@@ -149,6 +151,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
           </Command>
         </PopoverContent>
       </Popover>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create team</DialogTitle>

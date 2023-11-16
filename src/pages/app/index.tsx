@@ -6,6 +6,22 @@ import RootLayout from "@/layouts/root-layout";
 
 import { useSession } from "next-auth/react";
 import NestedLayout from "@/layouts/nested-layout";
+import TeamSwitcher from "@/components/ui/team-switcher";
+import { DatePicker } from "@/components/ui/date-picker";
+import {
+  DialogHeader,
+  DialogFooter,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@radix-ui/react-label";
+import { CopyIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const HomePage: NextPageWithLayout = () => {
   const { data: sessionData } = useSession();
@@ -19,10 +35,13 @@ const HomePage: NextPageWithLayout = () => {
       <Head>
         <title>Home Page</title>
         <meta name="description" content="Home page" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
-      <div className="flex flex-col p-2">
-        <p className="text-2xl ">Welcome Back</p>
+
+      <div className="flex items-center border-b px-4 py-2">
+        <DatePicker />
+        <div className="ml-auto">
+          <TeamSwitcher />
+        </div>
       </div>
     </>
   );
